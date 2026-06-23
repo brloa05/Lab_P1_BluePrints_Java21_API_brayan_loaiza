@@ -254,3 +254,43 @@ ENTRYPOINT ["java","-jar","/app/app.jar"]
 ```
 
 La imagen de build usa Maven + JDK 21 para compilar, y la imagen final usa solo el JRE 21, reduciendo el tamaño del contenedor resultante.
+
+---
+
+## Bonus: Métricas con Spring Boot Actuator
+
+Spring Boot Actuator expone endpoints automáticos para monitorear el estado y las métricas de la aplicación en tiempo real, sin escribir código adicional.
+
+### Endpoints disponibles
+
+| Endpoint | Descripción |
+|----------|-------------|
+| `http://localhost:8080/actuator/health` | Estado de la app y conexión a la BD |
+| `http://localhost:8080/actuator/metrics` | Lista de métricas disponibles (CPU, memoria, HTTP) |
+| `http://localhost:8080/actuator/info` | Información general del proyecto |
+
+### Ejemplo de respuesta `/actuator/health`
+
+```json
+{
+  "status": "UP",
+  "components": {
+    "db": { "status": "UP" },
+    "diskSpace": { "status": "UP" }
+  }
+}
+```
+
+### Ejemplo de respuesta `/actuator/info`
+
+```json
+{
+  "app": {
+    "nombre": "Blueprints REST API",
+    "version": "1.0.0",
+    "descripcion": "API REST para gestion de blueprints - Lab #4 ARSW",
+    "estudiante": "Brayan Loaiza",
+    "tecnologias": "Java 21, Spring Boot 3.3.x, PostgreSQL, Docker"
+  }
+}
+```
