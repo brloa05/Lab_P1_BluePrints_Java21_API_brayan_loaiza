@@ -178,10 +178,10 @@ Tabla `blueprint_points` — almacena los puntos asociados a cada blueprint por 
 
 ### 1. Versionamiento de API
 La ruta base `/api/v1/blueprints` permite evolucionar la API en el futuro (v2, v3) sin romper clientes existentes.
-
+![img.png](docs/images/versinamientoAPI.png)
 ### 2. Wrapper de respuesta uniforme `ApiResponse<T>`
 Todas las respuestas tienen la misma estructura (`code`, `message`, `data`), lo que facilita el manejo en el cliente sin importar el endpoint consultado.
-
+![img.png](docs/images/respuestasUniform.png)
 ### 3. Códigos HTTP semánticos
 | Situación | Código |
 |-----------|--------|
