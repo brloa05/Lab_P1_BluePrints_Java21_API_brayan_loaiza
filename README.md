@@ -216,3 +216,41 @@ Los filtros se aplican únicamente al consultar un blueprint individual (`GET /{
 | Uso correcto de códigos HTTP y control de errores | 20% |
 | Documentación con OpenAPI/Swagger + README | 15% |
 | Pruebas básicas | 15% |
+
+---
+
+## Bonus: Imagen de contenedor con Docker
+
+El proyecto incluye un `Dockerfile` multi-stage que construye y empaqueta la aplicación como imagen de contenedor.
+
+### Construir y ejecutar la imagen
+
+```bash
+# Construir la imagen
+docker build -t blueprints-api .
+
+# Ejecutar solo la API (requiere PostgreSQL corriendo aparte)
+docker run -p 8080:8080 blueprints-api
+
+# Ejecutar API + PostgreSQL juntos con docker compose
+docker compose up -d
+```
+
+### Dockerfile (multi-stage)
+
+```dockerfile
+FROM maven:3.9-eclipse-temurin-21 AS build
+WORKDIR /app
+COPY pom.xml .
+RUN mvn -B dependency:go-offline
+COPY src ./src
+RUN mvn -B -DskipTests package
+
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+COPY --from=build /app/target/*.jar ./app.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","/app/app.jar"]
+```
+
+La imagen de build usa Maven + JDK 21 para compilar, y la imagen final usa solo el JRE 21, reduciendo el tamaño del contenedor resultante.
