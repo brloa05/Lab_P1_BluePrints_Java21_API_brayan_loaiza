@@ -149,11 +149,9 @@ Todos los endpoints están anotados con `@Operation` y `@ApiResponse` de springd
 
 ### Evidencia Swagger UI
 
-> **Agregar capturas de pantalla aquí**
-> 1. Vista general de endpoints en Swagger UI
-> 2. Ejecución de GET `/api/v1/blueprints` con respuesta
-> 3. Ejecución de POST con body y respuesta 201
-> 4. Ejecución con datos inválidos mostrando respuesta 400
+La interfaz expone los 5 endpoints documentados con sus descripciones y métodos HTTP:
+
+![Swagger UI](docs/images/swagger-ui.png)
 
 ---
 
@@ -166,9 +164,13 @@ docker exec -it lab_p1_blueprints_java21_api-postgres-1 psql -U postgres -d blue
 docker exec -it lab_p1_blueprints_java21_api-postgres-1 psql -U postgres -d blueprints -c "SELECT * FROM blueprint_points;"
 ```
 
-> **Agregar capturas de pantalla aquí**
-> 1. Tabla `blueprints` con registros creados
-> 2. Tabla `blueprint_points` con los puntos asociados
+Tabla `blueprints` — almacena autor y nombre de cada blueprint:
+
+![Tabla blueprints](docs/images/db-blueprints.png)
+
+Tabla `blueprint_points` — almacena los puntos asociados a cada blueprint por `blueprint_id`:
+
+![Tabla blueprint_points](docs/images/db-points.png)
 
 ---
 
